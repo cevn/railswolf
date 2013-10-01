@@ -3,13 +3,18 @@ SdharRailswolf::Application.routes.draw do
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy] 
+  resources :games
 
-  match '/signup',  to: 'users#new',            via: 'get'
-  match '/signin',  to: 'sessions#new',         via: 'get'
-  match '/signout', to: 'sessions#destroy',     via: 'delete'
-  match '/help',    to: 'static_pages#help',    via: 'get'
-  match '/about',   to: 'static_pages#about',   via: 'get'
-  match '/contact', to: 'static_pages#contact', via: 'get'
+  match '/signup',      to: 'users#new',            via: 'get'
+  match '/signin',      to: 'sessions#new',         via: 'get'
+  match '/signout',     to: 'sessions#destroy',     via: 'delete'
+  match '/help',        to: 'static_pages#help',    via: 'get'
+  match '/about',       to: 'static_pages#about',   via: 'get'
+  match '/contact',     to: 'static_pages#contact', via: 'get'
+  match '/game/create', to: 'game#create',          via: 'get'
+  match '/game',        to: 'game#show',            via: 'get'
+  match '/game/edit',   to: 'game#update',          via: 'get' 
+  match '/game/end',    to: 'game#destroy',         via: 'delete' 
 
 
   # The priority is based upon order of creation: first created -> highest priority.

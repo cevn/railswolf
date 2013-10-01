@@ -1,0 +1,53 @@
+<% provide(:title, 'Game Overview') %>
+<h1>Game Overview</h1> 
+
+<% if current_user.admin? %> 
+  <div class='center hero-unit'> 
+    <%= link_to "Create game!", game_create_path, class: "btn btn-large btn-primary" %>
+    <%= link_to "Administer game!", game_edit_path, class: "btn btn-large btn-primary" %>
+  </div> 
+<% end %>
+
+<div class='container-fluid'> 
+  <div class='row-fluid'> 
+    <div class='span2'> 
+      <%= will_paginate %>
+      <ul class='kills'> 
+        <%= render @kills %>
+      </ul> 
+      <%= will_paginate %>
+    </div> 
+
+    <div class='span10' id='map'> 
+    </div> 
+  </div>
+</div> 
+
+
+<script> 
+var defaulticon = L.icon({
+
+    iconUrl:   '<%= asset_path('marker-icon.png') %>',
+    shadowUrl: '<%= asset_path('marker-shadow.png') %>',
+
+    //iconSize:     [38, 95], // size of the icon
+    //shadowSize:   [50, 64], // size of the shadow
+    iconAnchor:   [0, 32], // point of the icon which will correspond to marker's location
+    //shadowAnchor: [4, 62],  // the same for the shadow
+    //popupAnchor:  [-10, -10] // point from which the popup should open relative to the iconAnchor
+});
+  var lat = 37.2707;  
+  var lon = -76.7120; 
+
+  var map = L.map('map', {
+      center: [lat, lon],
+      zoom: 16
+  });
+
+  L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
+    key: '0b9e3b46e10f417182b04a610be00f88',
+    styleId: 997
+  }).addTo(map);
+
+//L.marker([lat, lon], {icon: defaulticon}).addTo(map);
+</script>
