@@ -19,6 +19,10 @@ class GameController < ApplicationController
     render :end
   end 
 
+  def index
+    render :index
+  end
+
   private
     def admin_user
       if !current_user.admin? 
