@@ -80,10 +80,12 @@ class UsersController < ApplicationController
     end
 
     def admin_user
+      flash[:error] = "You must be an admin to view that page!" 
       redirect_to(root_url) unless current_user.admin?
     end
 
     def werewolf_user
+      flash[:error] = "You must be a werewolf to view that page!" 
       redirect_to(root_url) unless current_user.werewolf?
     end
 end

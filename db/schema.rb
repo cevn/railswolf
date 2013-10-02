@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20131001181024) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "events", force: true do |t|
     t.string   "killer"
     t.string   "victim"
