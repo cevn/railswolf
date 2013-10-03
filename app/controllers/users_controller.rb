@@ -5,6 +5,16 @@ class UsersController < ApplicationController
 
   respond_to :json, :html 
 
+
+  ## Used to avoid the authentication token error when using json api 
+  def verified_request? 
+    if request.content_type == "application/json"
+      true
+    else
+      super()
+    end
+  end
+
   def show
     @user = User.find(params[:id])
     respond_with @user
@@ -22,13 +32,14 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    
     if @user.save
       UserMailer.welcome_email(@user).deliver
       sign_in @user
       flash[:success] = "Welcome to railswolf!"
-      redirect_to @user
-    else
-      render 'new'
+    end
+    respond_with(@user) do |format| 
+      format.json { render :json => { :errors => @user.errors.full_messages }}
     end
   end
 
