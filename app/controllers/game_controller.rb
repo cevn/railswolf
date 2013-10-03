@@ -1,14 +1,12 @@
 class GameController < ApplicationController
-  before_action :admin_user,     only: [:create, :destroy, :index] 
-
+  before_action :admin_user,     only: [:create, :destroy] 
   respond_to :json, :html
+
   def create
     render :create
   end
 
   def show
-    @kills = Kill.paginate(page: params[:page])
-    respond_with @kills
   end 
 
   def update
@@ -20,13 +18,13 @@ class GameController < ApplicationController
   end 
 
   def index
-    render :index
+    @kills = Kill.paginate(page: params[:page])
+    respond_with @kills
   end
 
   private
     def admin_user
       if !current_user.admin? 
-        flash[:error] = "You need to be an admin to view that page." 
         redirect_to(root_url) 
       end
     end

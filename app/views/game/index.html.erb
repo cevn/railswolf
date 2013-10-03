@@ -3,20 +3,20 @@
 
 <% if current_user.admin? %> 
   <div class='center hero-unit'> 
-    <%= link_to "Create game!", game_create_path, class: "btn btn-large btn-primary" %>
-    <%= link_to "Administer game!", game_edit_path, class: "btn btn-large btn-primary" %>
+    <%= link_to "Create game!", new_game_path, class: "btn btn-large btn-primary" %>
+    <%#= link_to "Administer game!", edit_game_path, class: "btn btn-large btn-primary" %>
   </div> 
 <% end %>
 
 <div class='container-fluid'> 
   <div class='row-fluid'> 
-    <div class='span2'> 
+    <div class='span4'> 
       <ul class='kills'> 
         <%= render @kills %>
       </ul> 
     </div> 
 
-    <div class='span10' id='map'> 
+    <div class='span8' id='map'> 
     </div> 
   </div>
 </div> 
@@ -32,14 +32,14 @@ var defaulticon = L.icon({
     //shadowSize:   [50, 64], // size of the shadow
     iconAnchor:   [0, 32], // point of the icon which will correspond to marker's location
     //shadowAnchor: [4, 62],  // the same for the shadow
-    //popupAnchor:  [-10, -10] // point from which the popup should open relative to the iconAnchor
+    popupAnchor:  [6, -32] // point from which the popup should open relative to the iconAnchor
 });
   var lat = 37.2707;  
   var lon = -76.7120; 
 
   var map = L.map('map', {
       center: [lat, lon],
-      zoom: 16
+      zoom: 15
   });
 
   L.tileLayer('http://{s}.tile.cloudmade.com/{key}/{styleId}/256/{z}/{x}/{y}.png', {
@@ -47,5 +47,13 @@ var defaulticon = L.icon({
     styleId: 997
   }).addTo(map);
 
-//L.marker([lat, lon], {icon: defaulticon}).addTo(map);
+
+
+<% @kills.each do |k| %> 
+  var popupText = "<%= k.victim %> died here :(";
+  lat = <%= k.latitude %>
+  lon = <%= k.longitude %>
+  L.marker([lat, lon], {icon: defaulticon}).bindPopup(popupText).openPopup().addTo(map);
+  
+<% end %>
 </script>
