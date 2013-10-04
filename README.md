@@ -5,9 +5,9 @@ To run the server on your current computer:
 You need ruby, rails, and a postgresql server(with a superuser and database
 named `$user`)  running on your computer. 
 
-  git clone https://github.com/cevn/railswolf.git
-  cd railswolf
-  rails s
+    git clone https://github.com/cevn/railswolf.git
+    cd railswolf
+    rails s
 
 When setting up on a new computer, you may get a `PG:BadConnect` exception if
 you don't have a postgresql server correctly set up on your computer. 
