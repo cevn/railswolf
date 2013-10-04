@@ -1,4 +1,5 @@
-== README
+README
+---
 
 To run the server on your current computer: 
 You need ruby, rails, and a postgresql server(with a superuser and database
@@ -9,8 +10,9 @@ named `$user`)  running on your computer.
   rails s
 
 When setting up on a new computer, you may get a `PG:BadConnect` exception if
-you don't have a postgresql server correctly set up on your computer. Also, make sure that
-`pg_hba.conf` looks like this so that the app can be run (the important part is
+you don't have a postgresql server correctly set up on your computer. 
+
+Also, make sure that `pg_hba.conf` looks like this so that the app can be run (the important part is
 that the connections are set to `trust` instead of `all`). WARNING: do not do
 this on a production server. This sets it so that localhost can connect to the
 postgres server without authentication. 
@@ -23,8 +25,4 @@ postgres server without authentication.
     # IPv6 local connections:
     host    all             all             ::1/128                 trust
 
-After this, the app should properly work. 
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
-
+After this, the app should properly work, after running `rake db:reset` in the app directory. 
