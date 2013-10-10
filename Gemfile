@@ -17,6 +17,7 @@ gem 'faker'
 gem 'will_paginate' 
 gem 'bootstrap-will_paginate'
 gem 'leaflet-rails' 
+gem 'simple_form'
 
 group :doc do
   gem 'sdoc', require: false
