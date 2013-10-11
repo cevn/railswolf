@@ -1,7 +1,25 @@
 class SessionsController < ApplicationController
+  respond_to :json, :html
+
   def new
   end
 
+  def create
+    user = User.find_by(email: params[:session][:email].downcase)
+
+    respond_to do |format|
+      if user && user.authenticate(params[:session][:password]) #because user has_secure_password
+        format.html { sign_in user, notice: "Login successful!" }
+        format.json { render :json => {:success => true,
+                      :info => "Logged in" } }
+      else
+        format.html { flash.now.alert = "Wrong email or password"
+                    render "new" }
+        format.json { render :json => {:success => false, :info => "Wrong email or password" } }
+      end
+    end
+  end
+    
   def create
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])

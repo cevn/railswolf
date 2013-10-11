@@ -16,9 +16,9 @@ url = "https://railswolf.herokuapp.com/users"  # This is a local test environmen
                                     # Testing with pow configured: https://railswolf.dev/users
 
 if (len(sys.argv) == 2): 
-    url = "https://" + sys.argv[1]   
+    url = "http://" + sys.argv[1]   
 
-json_dict = { 'user': { 'name': fullname, 'email': email, 'password': password, 'password_confirmation': password }}
+json_dict = { 'user': { 'email': email, 'password': password }}
 
 # convert json_dict to JSON
 json_data = json.dumps(json_dict)
