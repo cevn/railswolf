@@ -16,6 +16,9 @@ gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'leaflet-rails' 
 gem 'simple_form', github: 'zlx/simple_form_bootstrap3'
+gem 'devise' 
+gem 'foreigner'
+gem 'immigrant'
 
 
 gem 'sass-rails'
