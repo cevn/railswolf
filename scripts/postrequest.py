@@ -7,10 +7,11 @@ fullname = "John Doe"
 email    = "example3@example.com" 
 password = "example" 
 
-url = "http://railswolf.herokuapp.com/users.json"  # This is a local test environment for me only. 
+url = "https://railswolf.herokuapp.com/users"  # This is a local test environment for me only. 
                                     # Change the string if you're going to use a different url. 
-                                    # Testing with heroku: http://railswolf.herokuapp.com/users
-                                    # Testing with localhost: http://localhost:3000/users
+                                    # Testing with heroku: https://railswolf.herokuapp.com/users
+                                    # Testing with localhost: https://localhost:3000/users
+                                    # Testing with pow configured: https://railswolf.dev/users
 
 json_dict = { 'user': { 'name': fullname, 'email': email, 'password': password, 'password_confirmation': password }}
 

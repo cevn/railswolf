@@ -1,12 +1,24 @@
 README
 ---
 
+To test JSON using a script: 
+
+    python3 postrequest.py
+    ./postrequest.sh
+
+The python script is easier to modify. Make sure you use https or rails will 
+not authenticate properly or something. 
+
+The response will be saved in a `response.json` object which is a list of errors. 
+If the array is empty, you should have successfully created a user. 
+
 To run the server on your current computer: 
 You need ruby, rails, and a postgresql server(with a superuser and database
 named `$user`)  running on your computer. 
 
     git clone https://github.com/cevn/railswolf.git
     cd railswolf
+    rake db:reset
     rails s
 
 When setting up on a new computer, you may get a `PG:BadConnect` exception if
