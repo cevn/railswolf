@@ -6,14 +6,14 @@ class UsersController < ApplicationController
   respond_to :json, :html 
 
 
-  ## Used to avoid the authentication token error when using json api 
-  def verified_request? 
-    if request.content_type == "application/json"
-      true
-    else
-      super()
-    end
-  end
+  #### Used to avoid the authentication token error when using json api 
+  ##def verified_request? 
+  ##  if request.content_type == "application/json"
+  ##    true
+  ##  else
+  ##    super()
+  ##  end
+  ##end
 
   def show
     @user = User.find(params[:id])
