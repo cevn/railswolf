@@ -1,17 +1,23 @@
 Railswolf::Application.routes.draw do
-  devise_for :users
   devise_for :admins
+  devise_for :users
+  resources  :admins
+  resources  :users
 
-  root 'static_pages#home'
+  devise_scope :user do
+    get '/signin' => 'devise/sessions#new'
+  end
 
-  resources :sessions, only: [:new, :create, :destroy] 
-
-  match '/signup',  to: 'users#new',            via: 'get'
-  match '/signin',  to: 'sessions#new',         via: 'get'
-  match '/signout', to: 'sessions#destroy',     via: 'delete'
-  match '/help',    to: 'static_pages#help',    via: 'get'
-  match '/about',   to: 'static_pages#about',   via: 'get'
-  match '/contact', to: 'static_pages#contact', via: 'get'
+  devise_scope :admin do
+    get '/signin' => 'devise/sessions#new'
+  end
+  
+  root  'static_pages#home'
+  match '/signup',  to: 'devise/registrations#new',            via: 'get'
+  match '/signout', to: 'devise/sessions#destroy',             via: 'delete'
+  match '/help',    to: 'static_pages#help',                   via: 'get'
+  match '/about',   to: 'static_pages#about',                  via: 'get'
+  match '/contact', to: 'static_pages#contact',                via: 'get'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
