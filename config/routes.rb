@@ -1,9 +1,9 @@
 Railswolf::Application.routes.draw do
-  devise_for :admins
   devise_for :users
+  devise_for :admins
+
   root 'static_pages#home'
 
-  resources :users
   resources :sessions, only: [:new, :create, :destroy] 
 
   match '/signup',  to: 'users#new',            via: 'get'

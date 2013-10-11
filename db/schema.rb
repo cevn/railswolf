@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20131011175913) do
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
+    t.string   "name",                   default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.integer  "user_id"
     t.integer  "game_id"
@@ -66,6 +67,12 @@ ActiveRecord::Schema.define(version: 20131011175913) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+
+    t.string   :confirmation_token
+    t.datetime :confirmed_at
+    t.datetime :confirmation_sent_at
+    t.string   :unconfirmed_email # Only if using reconfirmable
+
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
