@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
          :confirmable 
 
   belongs_to :game
-  has_one :character, through: :games
+  has_many :characters, :dependent => :destroy
 end

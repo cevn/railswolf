@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131011210556) do
+ActiveRecord::Schema.define(version: 20131011175850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,7 +46,9 @@ ActiveRecord::Schema.define(version: 20131011210556) do
   end
 
   create_table "games", force: true do |t|
-    t.integer  "game_id"
+    t.string   "events"
+    t.boolean  "day"
+    t.boolean  "play"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -55,7 +57,6 @@ ActiveRecord::Schema.define(version: 20131011210556) do
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "name",                   default: "", null: false
-    t.integer  "user_id"
     t.integer  "game_id"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -76,10 +77,5 @@ ActiveRecord::Schema.define(version: 20131011210556) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  add_foreign_key "characters", "games", name: "characters_game_id_fk"
-  add_foreign_key "characters", "users", name: "characters_user_id_fk"
-
-  add_foreign_key "users", "games", name: "users_game_id_fk"
 
 end
