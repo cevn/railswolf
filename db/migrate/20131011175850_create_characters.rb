@@ -3,7 +3,7 @@ class CreateCharacters < ActiveRecord::Migration
     create_table :characters do |t|
       t.integer :game_id
       t.integer :user_id
-      t.integer :character_number
+      t.integer :char_id
       t.string  :name
       t.boolean :dead
       t.boolean :werewolf

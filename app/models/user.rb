@@ -5,6 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable 
 
-  has_and_belongs_to_many :games
+  belongs_to :game
   has_one :character, through: :games
 end
