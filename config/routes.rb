@@ -1,21 +1,14 @@
 Railswolf::Application.routes.draw do
-  devise_for :admins
-  devise_for :users
-  resources  :admins
-  resources  :users
 
-  devise_scope :user do
-    get '/signin' => 'devise/sessions#new'
+  scope 'game' do
+    devise_for :users
+    resources :users, only: [:show, :index] do
+      resources :characters, only: [:create, :destroy, :show]
+    end
   end
 
-  devise_scope :admin do
-    get '/signin' => 'devise/sessions#new'
-  end
-  
   root  'static_pages#home'
-  match '/signup',  to: 'devise/registrations#new',            via: 'get'
-  match '/signout', to: 'devise/sessions#destroy',             via: 'delete'
-  match '/help',    to: 'static_pages#help',                   via: 'get'
+
   match '/about',   to: 'static_pages#about',                  via: 'get'
   match '/contact', to: 'static_pages#contact',                via: 'get'
 
