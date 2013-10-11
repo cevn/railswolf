@@ -7,7 +7,7 @@ fullname = "John Doe"
 email    = "example3@example.com" 
 password = "example" 
 
-url = "http://railswolf.dev/users"  # This is a local test environment for me only. 
+url = "http://railswolf.herokuapp.com/users"  # This is a local test environment for me only. 
                                     # Change the string if you're going to use a different url. 
                                     # Testing with heroku: http://railswolf.herokuapp.com/users
                                     # Testing with localhost: http://localhost:3000/users
