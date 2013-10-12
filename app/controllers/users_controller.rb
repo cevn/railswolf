@@ -34,6 +34,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def authenticate
+    render :status => 200, :json => {
+      :auth_token => @user.authentication_token,
+      :csrf_token => form_authenticity_token
+    }
+  end
+
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = "User destroyed." 
@@ -66,4 +73,8 @@ class UsersController < ApplicationController
     end
   end
 
+  private
+    def admin_user? 
+      return @user.admin? 
+    end
 end

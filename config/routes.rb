@@ -3,14 +3,18 @@ Railswolf::Application.routes.draw do
   scope 'game' do
     devise_for :users
     resources :users, only: [:show, :index] do
+      member do
+        get 'authenticate'
+      end
       resources :characters, only: [:create, :destroy, :show]
     end
   end
 
   root  'static_pages#home'
-
-  match '/about',   to: 'static_pages#about',                  via: 'get'
-  match '/contact', to: 'static_pages#contact',                via: 'get'
+  match '/signin',  to: 'devise/sessions#create',          via: 'get'
+  match '/signout', to: 'devise/users#sessions#destroy',   via: 'destroy'
+  match '/about',   to: 'static_pages#about',              via: 'get'
+  match '/contact', to: 'static_pages#contact',            via: 'get'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

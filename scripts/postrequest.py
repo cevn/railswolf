@@ -9,7 +9,7 @@ email    = "example3@example.com"
 password = "example" 
 
 
-url = "https://railswolf.herokuapp.com/users"  # This is a local test environment for me only. 
+url = "http://railswolf.dev/game/users/1/authenticate"  # This is a local test environment for me only. 
                                     # Change the string if you're going to use a different url. 
                                     # Testing with heroku: https://railswolf.herokuapp.com/users
                                     # Testing with localhost: https://localhost:3000/users
