@@ -2,7 +2,7 @@ Railswolf::Application.routes.draw do
 
   scope 'game' do
     devise_for :users
-    resources :users, only: [:show, :index] do
+    resources :users, only: [:show, :index, :edit] do
       member do
         get 'authenticate'
       end
