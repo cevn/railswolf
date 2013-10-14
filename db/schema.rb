@@ -11,39 +11,54 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131001181024) do
+ActiveRecord::Schema.define(version: 20131011224328) do
 
-  create_table "events", force: true do |t|
-    t.string   "killer"
-    t.string   "victim"
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "characters", force: true do |t|
+    t.integer  "game_id"
+    t.integer  "user_id"
+    t.integer  "char_id"
+    t.string   "name"
+    t.boolean  "dead"
+    t.boolean  "werewolf"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "kills", force: true do |t|
-    t.string   "killer"
-    t.string   "victim"
+  create_table "games", force: true do |t|
+    t.string   "events"
+    t.boolean  "day"
+    t.boolean  "play"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "latitude"
-    t.float    "longitude"
   end
 
   create_table "users", force: true do |t|
+    t.string   "email",                  default: "",    null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "name"
-    t.string   "email"
+    t.boolean  "admin",                  default: false
+    t.integer  "game_id"
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,     null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "password_digest"
-    t.string   "remember_token"
-    t.boolean  "admin",           default: false
-    t.float    "latitude"
-    t.float    "longitude"
-    t.boolean  "dead"
-    t.boolean  "werewolf"
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

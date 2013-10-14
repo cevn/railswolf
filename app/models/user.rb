@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  has_one :character, through: :game
+
+
   before_save { self.email = email.downcase }
   before_create :create_remember_token
 
