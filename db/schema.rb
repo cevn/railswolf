@@ -11,26 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131011224328) do
+ActiveRecord::Schema.define(version: 20131014044424) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "characters", force: true do |t|
-    t.integer  "game_id"
-    t.integer  "user_id"
-    t.integer  "char_id"
-    t.string   "name"
-    t.boolean  "dead"
-    t.boolean  "werewolf"
+    t.float    "lat"
+    t.float    "long"
+    t.boolean  "dead",       default: false
+    t.boolean  "werewolf",   default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "games", force: true do |t|
-    t.string   "events"
-    t.boolean  "day"
-    t.boolean  "play"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

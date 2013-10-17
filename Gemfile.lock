@@ -48,6 +48,9 @@ GEM
       activerecord (>= 3.0.0)
     hike (1.2.3)
     i18n (0.6.5)
+    immigrant (0.1.5)
+      activerecord (>= 3.0)
+      foreigner (>= 1.2.1)
     jbuilder (1.5.1)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
@@ -133,6 +136,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   faker
   foreigner
+  immigrant
   jbuilder (~> 1.2)
   jquery-rails
   leaflet-rails
