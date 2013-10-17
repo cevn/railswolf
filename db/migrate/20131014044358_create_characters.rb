@@ -5,6 +5,7 @@ class CreateCharacters < ActiveRecord::Migration
       t.float :long
       t.boolean :dead, default: false
       t.boolean :werewolf, default: false
+      t.references :game_id
 
       t.timestamps
     end
