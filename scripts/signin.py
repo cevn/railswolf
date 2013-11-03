@@ -19,7 +19,7 @@ if (len(sys.argv) == 2):
     url = "https://" + sys.argv[1]   
 
 
-json_dict = { 'user': { 'email': email, 'password': password }}
+json_dict = { 'email': email, 'password': password }
 
 # convert json_dict to JSON
 json_data = json.dumps(json_dict)
