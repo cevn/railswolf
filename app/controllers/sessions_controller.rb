@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
       if user && user.authenticate(params[:session][:password]) #because user has_secure_password
         format.html { sign_in user, notice: "Login successful!" }
         format.json { render :json => {:success => true,
-                      :info => "Logged in", :token => form_authenticity_token } }
+                      :auth_token => form_authenticity_token } }
       else
         format.html { flash.now.alert = "Wrong email or password"
                     render "new" }
