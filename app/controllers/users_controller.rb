@@ -24,9 +24,14 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     
     if @user.save
-      UserMailer.welcome_email(@user).deliver
-      sign_in @user
-      flash[:success] = "Welcome to railswolf!"
+      respond_with(@user) do |format|
+        format.json {render :json => { :success => true, :auth_token => form_authenticity_token }}
+        format.html {
+          UserMailer.welcome_email(@user).deliver
+          sign_in @user
+          flash[:success] = "Welcome to railswolf!"
+        }
+      end
     end
     respond_with(@user) do |format| 
       format.json { render :json => { :errors => @user.errors.full_messages }}
