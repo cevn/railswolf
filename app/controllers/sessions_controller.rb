@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
   respond_to :json, :html
+  skip_before_filter :verify_authenticity_token, 
+    :if => Proc.new { |c| c.request.format == 'application/json' }
 
   def new
   end
@@ -11,7 +13,7 @@ class SessionsController < ApplicationController
       if user && user.authenticate(params[:session][:password]) #because user has_secure_password
         format.html { sign_in user, notice: "Login successful!" }
         format.json { render :json => {:success => true,
-                      :info => "Logged in" } }
+                      :info => "Logged in", :token => form_authenticity_token } }
       else
         format.html { flash.now.alert = "Wrong email or password"
                     render "new" }
