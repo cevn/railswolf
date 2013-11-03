@@ -11,7 +11,8 @@ class SessionsController < ApplicationController
 
     respond_to do |format|
       if user && user.authenticate(params[:session][:password]) #because user has_secure_password
-        format.html { sign_in user, notice: "Login successful!" }
+        format.html { sign_in user, notice: "Login successful!"
+                      redirect_to user }
         format.json { render :json => {:success => true,
                       :auth_token => form_authenticity_token } }
       else
