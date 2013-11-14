@@ -42,13 +42,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def move
-    @user = User.find(params[:id]) 
-    if @user.update_attributes(move_params)
-      flash[:success] = "User moved to new location." 
-      redirect_to @user
-    end
-  end
 
   def update
     @user = User.find(params[:id])
@@ -61,10 +54,6 @@ class UsersController < ApplicationController
   end
 
   private
-    def move_params
-      params.require(:user).permit(:latitude, :longitude)
-    end
-
     def user_params
       params.require(:user).permit(:name, :email, :password,
                                    :password_confirmation)
@@ -87,8 +76,4 @@ class UsersController < ApplicationController
       redirect_to(root_url) unless current_user.admin?
     end
 
-    def werewolf_user
-      flash[:error] = "You must be a werewolf to view that page!" 
-      redirect_to(root_url) unless current_user.werewolf?
-    end
 end

@@ -3,7 +3,21 @@ class GameController < ApplicationController
   respond_to :json, :html
 
   def create
-    render :create
+    @game = Game.new
+    @users = User.all
+    @users.each do |user|
+      @character = Character.new(user.id)
+    end
+
+    @characters = Character.all 
+    @characters = @characters.shuffle!
+
+    @numWerewolves = @characters.count/4
+
+    0..@numWerewolves.each do |i|
+      @character = @characters[i]
+      @character.werewolf = true
+    end
   end
 
   def show
@@ -20,6 +34,11 @@ class GameController < ApplicationController
   def index
     @kills = Kill.paginate(page: params[:page])
     respond_with @kills
+  end
+
+  def night?  
+    @time = Time.now
+    !((6...21).include? @time.hour)
   end
 
   private
