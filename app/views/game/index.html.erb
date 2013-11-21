@@ -4,7 +4,7 @@
 <% if current_user.admin? %> 
   <div class='center hero-unit'> 
     <%= link_to "Create game!", new_game_path, class: "btn btn-large btn-primary" %>
-    <%#= link_to "Administer game!", edit_game_path, class: "btn btn-large btn-primary" %>
+    <%= link_to "Administer game!", edit_game_path, class: "btn btn-large btn-primary" %>
   </div> 
 <% end %>
 
