@@ -4,10 +4,6 @@ class GameController < ApplicationController
 
   def create
     @game = Game.new
-    @users = User.all
-    @users.each do |user|
-      @character = Character.new(user.id)
-    end
 
     @characters = Character.all 
     @characters = @characters.shuffle!

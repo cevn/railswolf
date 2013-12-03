@@ -7,8 +7,8 @@
         <%= @user.name %>
       </h1> <br> 
       <h2> 
-      Dead?: <%= @user.dead %> <br> 
-      Werewolf? :   <%= @user.werewolf %> 
+      Dead?: <%= @user.character.dead %> <br> 
+      Werewolf? :   <%= @user.character.werewolf %> 
       </h2> 
     </div>
     <div class="span10" id="map">
@@ -28,8 +28,8 @@ var defaulticon = L.icon({
     //shadowAnchor: [4, 62],  // the same for the shadow
     //popupAnchor:  [-10, -10] // point from which the popup should open relative to the iconAnchor
 });
-  var lat = <%= @user.latitude %>;
-  var lon = <%= @user.longitude %>;
+  var lat = <%= @user.character.lat %>;
+  var lon = <%= @user.character.long %>;
 
   var map = L.map('map', {
       center: [lat, lon],

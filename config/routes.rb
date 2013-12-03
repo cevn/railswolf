@@ -1,15 +1,18 @@
 SdharRailswolf::Application.routes.draw do
   root 'static_pages#home'
 
-  resources :users
-  resources :sessions, only: [:new, :create, :destroy] 
-  resources :game
-
   resources :users do
-    member do
-      get 'move' 
+    resource :character, except: [:new, :create, :destroy, :edit, :update] do
+      member do
+        put 'move' 
+        put 'kill'
+        put 'vote' 
+      end
     end
   end
+
+  resources :sessions, only: [:new, :create, :destroy] 
+  resource :game
 
   match '/signup',      to: 'users#new',            via: 'get'
   match '/signin',      to: 'sessions#new',         via: 'get'

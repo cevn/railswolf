@@ -2,6 +2,9 @@ class CharactersController < ApplicationController
   before_action :correct_char,    only: [:move, :kill] 
   before_action :admin_user,      only: [:destroy] 
 
+  responds_to :json, :html
+  
+
   def kill
     @killer = Character.find(params[:killerid])
     @victim = Character.find(params[:victimid])
@@ -21,7 +24,7 @@ class CharactersController < ApplicationController
 
   private 
     def move_params
-      params.require(:user).permit(:latitude, :longitude)
+      params.require(:character).permit(:lat, :long)
     end
 
     def correct_char
