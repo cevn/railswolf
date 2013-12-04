@@ -4,9 +4,9 @@ SdharRailswolf::Application.routes.draw do
   resources :users do
     resource :character, except: [:new, :create, :destroy, :edit, :update] do
       member do
-        put 'move' 
-        put 'kill'
-        put 'vote' 
+        post 'move' 
+        post 'kill'
+        post 'vote' 
       end
     end
   end

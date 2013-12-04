@@ -16,9 +16,15 @@ class CharactersController < ApplicationController
 
   def move
     @char = Character.find(params[:id]) 
+
     if @char.update_attributes(move_params)
-      flash[:success] = "User moved to new location." 
-      redirect_to @character
+      respond_with(@char) do |format| 
+        format.json {render :json => { :success => true }} 
+      end
+    else 
+      respond_with(@char) do |format| 
+        format.json {render :json => { :success => false }}
+      end
     end
   end
 
