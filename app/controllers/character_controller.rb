@@ -1,6 +1,8 @@
 class CharactersController < ApplicationController 
   before_action :correct_char,    only: [:move, :kill] 
   before_action :admin_user,      only: [:destroy] 
+  skip_before_filter :verify_authenticity_token
+
 
   respond_to :json, :html
   
