@@ -10,8 +10,8 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       sign_in user
       redirect_to user
-      respond_to :json do 
-        render :json => {:id => current_user.id}.to_json
+      respond_with(user) do |format| 
+        format.json {render :json => { :success => true, :auth_token => form_authenticity_token, :id => @user.id }}
       end
 
     else
