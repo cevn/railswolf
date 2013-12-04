@@ -9,10 +9,11 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:session][:email].downcase)
+    puts user.id
     if user && user.authenticate(params[:session][:password])
       sign_in user
       respond_with(user) do |format| 
-        format.json {render :json => { :success => true, :auth_token => form_authenticity_token, :id => @user.id }}
+        format.json {render :json => { :success => true, :auth_token => form_authenticity_token, :id => user.id }}
         format.html {redirect_to user}
       end
 
