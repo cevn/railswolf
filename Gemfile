@@ -13,14 +13,15 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass'
-gem 'faker'
 gem 'will_paginate' 
 gem 'bootstrap-will_paginate'
 gem 'leaflet-rails' 
 gem 'simple_form', '~> 3.0.0.rc'
 
-gem 'foreigner' 
-gem 'immigrant' 
+
+group :development do
+  gem 'faker'
+end
 
 group :doc do
   gem 'sdoc', require: false
