@@ -22,16 +22,26 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    
     if @user.save
       @user.character.lat = 37.2708
       @user.character.long = -76.7092
       @user.character.save 
-      UserMailer.welcome_email(@user).deliver
       sign_in @user
-      flash[:success] = "Welcome to railswolf!"
-      redirect_to @user
-    else
-      render 'new'
+
+      UserMailer.welcome_email(@user).deliver
+
+      respond_with(@user) do |format|
+        format.json {render :json => { :success => true, :auth_token => form_authenticity_token, :id => @user.id }}
+        format.html {
+          sign_in @user
+          flash[:success] = "Welcome to railswolf!"
+          redirect_to @user
+        }
+      end
+    end
+    respond_with(@user) do |format| 
+      format.json { render :json => { :errors => @user.errors.full_messages }}
     end
   end
 
