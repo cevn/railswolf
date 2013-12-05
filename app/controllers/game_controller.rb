@@ -27,15 +27,15 @@ class GameController < ApplicationController
     @game = Game.find(1) 
     if @game.active 
       @time = Time.now 
+      @game.night = !@game.night
+
       if @time.hour % 2 == 0
         @charToKill = @characters.sort(:town_votes).first
-        @charToKill.execute
-        @game.night = true
       else # Used to be night
         @charToKill = @characters.sort(:were_votes).first
-        @charToKill.execute
-        @game.night = false
       end
+
+      @charToKill.execute
 
       if @game.num_were == 0
         finish
