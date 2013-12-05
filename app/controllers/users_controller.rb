@@ -3,8 +3,6 @@ class UsersController < ApplicationController
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
 
-  respond_to :json, :html 
-
   def show
     @user = User.find(params[:id])
     respond_with @user
@@ -32,9 +30,9 @@ class UsersController < ApplicationController
       UserMailer.welcome_email(@user).deliver
 
       respond_with(@user) do |format|
-        format.json {render :json => { :success => true, :auth_token => form_authenticity_token, :id => @user.id }}
+        sign_in @user
+        format.json {render :json => { :success => true, :remember_token => @user.remember_token, :id => @user.id }}
         format.html {
-          sign_in @user
           flash[:success] = "Welcome to railswolf!"
           redirect_to @user
         }

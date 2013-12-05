@@ -1,6 +1,5 @@
 class GameController < ApplicationController
   before_action :admin_user,     only: [:create, :destroy] 
-  respond_to :json, :html
 
   def create
     @game = Game.new
