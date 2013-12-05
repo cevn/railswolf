@@ -17,6 +17,7 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'leaflet-rails' 
 gem 'simple_form', '~> 3.0.0.rc'
+gem 'whenever'
 
 
 group :development do

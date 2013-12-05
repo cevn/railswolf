@@ -3,11 +3,17 @@ class GameController < ApplicationController
 
   def create
     @game = Game.new
+    @game.active = :true 
+    @game.night = :true 
+    @game.num_alive = Character.where(:dead => false).all.count
 
     @characters = Character.all 
     @characters = @characters.shuffle!
 
     @numWerewolves = @characters.count/4
+
+    @game.num_were = @numWerewolves
+    @game.num_town = @game.num_alive - @game.num_were
 
     0..@numWerewolves.each do |i|
       @character = @characters[i]
@@ -15,25 +21,45 @@ class GameController < ApplicationController
     end
   end
 
-  def show
-  end 
-
   def update
-    render :edit
+    @characters = Character.where(:dead => false).all
+
+    @game = Game.find(1) 
+    if @game.active 
+      @time = Time.now 
+      if @time.hour % 2 == 0
+        @charToKill = @characters.sort(:town_votes).first
+        @charToKill.execute
+        @game.night = true
+      else # Used to be night
+        @charToKill = @characters.sort(:were_votes).first
+        @charToKill.execute
+        @game.night = false
+      end
+
+      if @game.num_were == 0
+        finish
+        elsif @game.num_town == 0
+          finish
+        elsif @game.num_alive == 0
+          finish
+      end
+    end
+  end
+
+  def finish
+    @game = Game.find(1) 
+    game.active = false
   end
 
   def destroy 
-    render :end
+    @game = Game.find(1) 
+    game.active = false
   end 
 
   def index
     @kills = Kill.paginate(page: params[:page])
     respond_with @kills
-  end
-
-  def night?  
-    @time = Time.now
-    !((6...21).include? @time.hour)
   end
 
   private

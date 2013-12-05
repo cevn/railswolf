@@ -27,6 +27,11 @@ ActiveRecord::Schema.define(version: 20131014044424) do
   end
 
   create_table "games", force: true do |t|
+    t.boolean  "night",      default: false
+    t.boolean  "active",     default: true
+    t.integer  "num_alive"
+    t.integer  "num_were"
+    t.integer  "num_town"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
