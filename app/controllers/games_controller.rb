@@ -1,7 +1,7 @@
-class GameController < ApplicationController
+class GamesController < ApplicationController
   before_action :admin_user,     only: [:create, :destroy] 
 
-  def create
+  def new 
     @game = Game.new
     @game.active = :true 
     @game.night = :true 
@@ -15,11 +15,19 @@ class GameController < ApplicationController
     @game.num_were = @numWerewolves
     @game.num_town = @game.num_alive - @game.num_were
 
-    0..@numWerewolves.each do |i|
+    (0..@numWerewolves).each do |i|
       @character = @characters[i]
       @character.werewolf = true
     end
+
+    @game.save
+
+    render 'manage' 
   end
+
+  def show
+    render 'create' 
+  end 
 
   def update
     @characters = Character.where(:dead => false).all
