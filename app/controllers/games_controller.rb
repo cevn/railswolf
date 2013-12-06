@@ -20,13 +20,17 @@ class GamesController < ApplicationController
       @character.werewolf = true
     end
 
-    @game.save
 
-    render 'manage' 
+    if @game.save
+      flash[:success] = "Game created with id = " + @game.id.to_s
+      render 'manage' 
+    else 
+      flash[:error] = "Error creating game!" 
+    end
   end
 
   def show
-    render 'create' 
+    render 'manage' 
   end 
 
 

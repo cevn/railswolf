@@ -37,9 +37,10 @@ class UsersController < ApplicationController
           redirect_to @user
         }
       end
-    end
-    respond_with(@user) do |format| 
-      format.json { render :json => { :errors => @user.errors.full_messages }}
+    else 
+      respond_with(@user) do |format| 
+        format.json { render :json => { :errors => @user.errors.full_messages }}
+      end
     end
   end
 

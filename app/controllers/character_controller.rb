@@ -47,18 +47,6 @@ class CharactersController < ApplicationController
   end
 
 
-  # Method is called every hour, when votes are tallied
-  def execute(char) 
-    @game = Game.find(1) 
-    @game.num_alive -= 1
-
-    if char.werewolf
-      @game.num_were -= 1
-    else
-      @game.num_town -= 1
-    end
-      
-  end
 
   private 
     def move_params
