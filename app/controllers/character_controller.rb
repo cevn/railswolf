@@ -1,5 +1,5 @@
 class CharactersController < ApplicationController 
-  before_action :correct_char,    only: [:move, :kill] 
+  before_action :correct_user,    only: [:move, :kill] 
   before_action :admin_user,      only: [:destroy] 
   
 
@@ -53,13 +53,15 @@ class CharactersController < ApplicationController
       params.require(:character).permit(:lat, :long)
     end
 
-    def correct_char
-      @char = Character.find(params[:id])
-      redirect_to root_url unless current_char?(@char)
+
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to root_url unless current_user?(@user)
     end
 
     def werewolf_char
+      @user = User.find(params[:id]) 
       flash[:error] = "You must be a werewolf to view that page!" 
-      redirect_to(root_url) unless current_char.werewolf?
+      redirect_to(root_url) unless user.character.werewolf?
     end
 end
