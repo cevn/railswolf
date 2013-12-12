@@ -1,5 +1,5 @@
 class CharactersController < ApplicationController 
-  before_action :correct_user,    only: [:move, :kill] 
+  # before_action :correct_user,    only: [:move, :kill] 
   before_action :admin_user,      only: [:destroy] 
   
 
