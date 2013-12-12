@@ -9,7 +9,10 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       sign_in user
       respond_with(user) do |format| 
-        format.json {render :json => { :success => true, :remember_token => user.remember_token , :id => user.id }}
+        format.json {render :json => { :success => true, 
+                                       :remember_token => user.remember_token, 
+                                       :id => user.id, 
+                                       :user => user.to_json }}
         format.html {redirect_to user}
       end
 
