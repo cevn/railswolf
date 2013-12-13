@@ -24,8 +24,7 @@ ActiveRecord::Schema.define(version: 20131205074513) do
     t.string   "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "were_votes", default: 0
-    t.integer  "town_votes", default: 0
+    t.integer  "votes",      default: 0
   end
 
   create_table "games", force: true do |t|

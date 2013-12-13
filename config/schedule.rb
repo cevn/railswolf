@@ -19,4 +19,6 @@
 
 # Learn more: http://github.com/javan/whenever
 
-every :day at 
+every 2.hours do
+  rake update_game
+end

@@ -3,31 +3,34 @@ class CharactersController < ApplicationController
   before_action :admin_user,      only: [:destroy] 
   
 
+  def kill 
+    @game = Game.find(1)
+    @killer = Character.find(params[:id]) 
+    @victim = Character.find(params[:victimid]) 
+
+    if @game.night
+      if @killer.werewolf 
+        @victim.dead = true
+        respond_with @victim do |format| 
+          format.json {render :json => { :success => true } }
+        end
+      end
+    end
+
+  end 
+
   def vote 
     @game = Game.find(1)
-    @voter = Character.find(params[:id])
     @voted = Character.find(params[:victimid])
 
-    if @voter.werewolf and @game.night
-      @voted.were_vote += 1
-      respond_with(@voter) do |format| 
-        format.json {render :json => { :success => :true} }
-      end
-
-    elsif @voter.werewolf and !@game.night
-      respond_with(@voter) do |format| 
-        format.json {render :json => { :success => :false, :error => "You can only vote to kill at night!" } }
-      end
-
-    elsif !@voter.werewolf and !@game.night
-      @voted.town_vote += 1
-      respond_with(@voter) do |format| 
-        format.json {render :json => { :success => :true} }
-      end
-
-    elsif !@voter.werewolf and @game.night
-      respond_with(@voter) do |format| 
+    if @game.night
+      respond_with(@voted) do |format| 
         format.json {render :json => { :success => :false, :error => "You can only vote during the day!" } }
+      end
+    else 
+      @voted.votes += 1
+      respond_with(@voted) do |format| 
+        format.json {render :json => { :success => true } } 
       end
     end
   end
