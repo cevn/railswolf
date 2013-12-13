@@ -2,12 +2,12 @@ class GamesController < ApplicationController
   before_action :admin_user,     only: [:create, :destroy] 
 
   def new 
-    @game = Game.find(1)
+    @game = Game.find_by_id(1)
 
-    if @game.empty? 
+    if !@game 
       @game = Game.new
-      @game.active = :true 
-      @game.night = :true 
+      @game.active = true 
+      @game.night = true 
       @game.num_alive = Character.where(:dead => false).all.count
 
       @characters = Character.all 
@@ -25,9 +25,11 @@ class GamesController < ApplicationController
 
 
       if @game.save
+        puts "Game created with id = " + @game.id.to_s
         flash[:success] = "Game created with id = " + @game.id.to_s
         render 'manage' 
       else 
+        puts "Error creating game!" 
         flash[:error] = "Error creating game!" 
       end
     end

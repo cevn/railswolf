@@ -4,11 +4,11 @@ class CharactersController < ApplicationController
   
 
   def kill 
-    @game = Game.find(1)
+    @game = Game.find_by_id(1)
     @killer = Character.find(params[:id]) 
     @victim = Character.find(params[:victimid]) 
 
-    if @game.night
+    if @game and @game.night
       if @killer.werewolf 
         @victim.dead = true
         respond_with @victim do |format| 
@@ -16,14 +16,17 @@ class CharactersController < ApplicationController
         end
       end
     end
-
   end 
 
+  def show_alive 
+    @living_chars = Character.where(:dead => :false).all
+  end
+
   def vote 
-    @game = Game.find(1)
+    @game = Game.find_by_id(1)
     @voted = Character.find(params[:victimid])
 
-    if @game.night
+    if @game and @game.night
       respond_with(@voted) do |format| 
         format.json {render :json => { :success => :false, :error => "You can only vote during the day!" } }
       end
@@ -48,8 +51,6 @@ class CharactersController < ApplicationController
       end
     end
   end
-
-
 
   private 
     def move_params
