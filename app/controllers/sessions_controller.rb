@@ -12,13 +12,13 @@ class SessionsController < ApplicationController
         format.json {render :json => { :success => true, 
                                        :remember_token => user.remember_token, 
                                        :id => user.id, 
-                                       :user => user.to_json }}
+                                       :werewolf => user.character.werewolf }}
         format.html {redirect_to user}
       end
 
     else
       respond_with(user) do |format| 
-        format.json {render :json => { :errors => user.errors.full_messages }}
+        format.json {render :json => { :errors => user.errors.full_messages, :success => false }}
         format.html {
           flash.now[:error] = 'Invalid email/password combination'
           render 'new'
