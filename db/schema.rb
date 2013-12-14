@@ -51,8 +51,7 @@ ActiveRecord::Schema.define(version: 20131205074513) do
     t.string   "email"
     t.string   "password_digest"
     t.string   "remember_token"
-    t.string   "admin",           default: "f"
-    t.string   "boolean",         default: "f"
+    t.boolean  "admin",           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

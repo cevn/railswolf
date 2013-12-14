@@ -7,6 +7,7 @@ SdharRailswolf::Application.routes.draw do
         post 'move' 
         post 'kill'
         post 'vote' 
+        get  'show_alive' 
       end
     end
   end
