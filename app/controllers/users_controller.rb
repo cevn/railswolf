@@ -31,7 +31,10 @@ class UsersController < ApplicationController
 
       respond_with(@user) do |format|
         sign_in @user
-        format.json {render :json => { :success => true, :remember_token => @user.remember_token, :id => @user.id }}
+        format.json {render :json => { :success => true,
+                                       :remember_token => @user.remember_token,
+                                       :id => @user.id,
+                                       :werewolf => @user.werewolf }}
         format.html {
           flash[:success] = "Welcome to railswolf!"
           redirect_to @user
@@ -50,10 +53,9 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
-  def edit
-    @user = User.find(params[:id])
-  end
-
+  def edit 
+    @user = User.find(params[:id]) 
+  end 
 
   def update
     @user = User.find(params[:id])
