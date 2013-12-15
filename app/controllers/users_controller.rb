@@ -34,7 +34,7 @@ class UsersController < ApplicationController
         format.json {render :json => { :success => true,
                                        :remember_token => @user.remember_token,
                                        :id => @user.id,
-                                       :werewolf => @user.werewolf }}
+                                       :werewolf => @user.character.werewolf }}
         format.html {
           flash[:success] = "Welcome to railswolf!"
           redirect_to @user
