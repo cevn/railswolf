@@ -39,7 +39,7 @@ class UsersController < ApplicationController
       end
     else 
       respond_with(@user) do |format| 
-        format.json { render :json => { :errors => @user.errors.full_messages }}
+        format.json { render :json => { :errors => @user.errors.full_messages, :success => false }}
       end
     end
   end
