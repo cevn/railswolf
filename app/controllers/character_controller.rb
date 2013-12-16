@@ -26,15 +26,22 @@ class CharactersController < ApplicationController
   def vote 
     @game = Game.find_by_id(1)
     @voted = Character.find(params[:victimid])
+    @char = Character.find(params[:id]) 
+
 
     if @game and @game.night
       respond_with(@voted) do |format| 
         format.json {render :json => { :success => :false, :error => "You can only vote during the day!" } }
       end
     else 
-      @voted.votes += 1
-      respond_with(@voted) do |format| 
-        format.json {render :json => { :success => true } } 
+      if !@char.voted
+        @voted.votes += 1
+        @voted.save
+        respond_with(@voted) do |format| 
+          format.json {render :json => { :success => true } } 
+      end
+      else 
+        format.json {render :json => { :success => :false, :error => "You can only vote once per day." } }
       end
     end
   end
