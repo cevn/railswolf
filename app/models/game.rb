@@ -44,4 +44,16 @@ class Game < ActiveRecord::Base
     @game.save
     end
   end
+
+  def self.finish
+    @game = Game.find(1) 
+    puts "Game is over!" 
+    if @game.num_were == 0
+      puts "Townspeople won!"
+    elsif @game.num_town == 0
+      puts "Werewolves won!" 
+    end
+    @game.active = false 
+    @game.save 
+  end
 end
