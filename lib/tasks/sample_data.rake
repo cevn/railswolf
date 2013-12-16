@@ -18,7 +18,7 @@ namespace :db do
       if user.save 
         user.character.latitude = 37.2708
         user.character.longitude = -76.7092
-        user.character.name = @user.name 
+        user.character.name = user.name 
         user.character.save 
       end
     end
