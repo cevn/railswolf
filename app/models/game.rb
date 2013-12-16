@@ -10,6 +10,11 @@ class Game < ActiveRecord::Base
 
     puts "Checking game activity"
     if @game and @game.active 
+      @charactervotes = Character.where(:dead => false).load
+      @charactervotes.each do |char| 
+        char.voted = false
+      end
+
       puts "Game is active. Updating.." 
       @time = Time.now 
       @game.night = !@game.night
