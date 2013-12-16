@@ -19,7 +19,7 @@ class Game < ActiveRecord::Base
       @time = Time.now 
       @game.night = !@game.night
 
-      if @time.hour % 1 == 0
+      if !@game.night
         @charToKill = @characters.order(:votes).last
         puts "Character to kill: " + @charToKill.user.name
         @charToKill.dead = true
