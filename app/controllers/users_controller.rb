@@ -24,6 +24,7 @@ class UsersController < ApplicationController
     if @user.save
       @user.character.lat = 37.2708
       @user.character.long = -76.7092
+      @user.character.name = @user.name 
       @user.character.save 
       sign_in @user
 
