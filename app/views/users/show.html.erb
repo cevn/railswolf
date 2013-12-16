@@ -28,8 +28,8 @@ var defaulticon = L.icon({
     //shadowAnchor: [4, 62],  // the same for the shadow
     //popupAnchor:  [-10, -10] // point from which the popup should open relative to the iconAnchor
 });
-  var lat = <%= @user.character.lat %>;
-  var lon = <%= @user.character.long %>;
+  var lat = <%= @user.character.latitude %>;
+  var lon = <%= @user.character.longitude %>;
 
   var map = L.map('map', {
       center: [lat, lon],
