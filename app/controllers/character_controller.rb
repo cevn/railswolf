@@ -26,7 +26,7 @@ class CharactersController < ApplicationController
   def vote 
     @game = Game.find_by_id(1)
     @voted = Character.find(params[:victimid])
-    @char = Character.find(params[:id]) 
+    @char = Character.find(params[:user_id]) 
 
 
     if @game and @game.night
