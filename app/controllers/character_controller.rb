@@ -37,6 +37,8 @@ class CharactersController < ApplicationController
       if !@char.voted
         @voted.votes += 1
         @voted.save
+        @char.voted = true 
+        @char.save
         respond_with(@voted) do |format| 
           format.json {render :json => { :success => true } } 
       end
