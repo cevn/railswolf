@@ -14,7 +14,6 @@ class UsersController < ApplicationController
   end
 
   def index
-    @user = User.find(params[:id])
     @users = User.paginate(page: params[:page])
     respond_with @users
   end
