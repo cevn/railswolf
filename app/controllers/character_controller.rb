@@ -43,7 +43,9 @@ class CharactersController < ApplicationController
           format.json {render :json => { :success => true } } 
       end
       else 
-        format.json {render :json => { :success => :false, :error => "You can only vote once per day." } }
+        respond_with(@voted) do |format| 
+          format.json {render :json => { :success => :false, :error => "You can only vote once per day." } }
+        end
       end
     end
   end
