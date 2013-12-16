@@ -17,8 +17,8 @@ ActiveRecord::Schema.define(version: 20131216075033) do
   enable_extension "plpgsql"
 
   create_table "characters", force: true do |t|
-    t.float    "lat"
-    t.float    "long"
+    t.float    "latitude"
+    t.float    "longitude"
     t.boolean  "dead",       default: false
     t.boolean  "werewolf",   default: false
     t.string   "user_id"
