@@ -20,6 +20,7 @@ class CharactersController < ApplicationController
 
   def show_alive 
     @living_chars = Character.where(:dead => :false).all
+    respond_with(@living_chars)
   end
 
   def vote 
