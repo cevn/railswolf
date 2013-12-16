@@ -13,6 +13,7 @@ class Game < ActiveRecord::Base
       @charactervotes = Character.where(:dead => false).load
       @charactervotes.each do |char| 
         char.voted = false
+        char.save
       end
 
       puts "Game is active. Updating.." 
