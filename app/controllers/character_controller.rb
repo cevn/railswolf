@@ -10,6 +10,8 @@ class CharactersController < ApplicationController
 
     if @game and @game.night
       if @killer.werewolf 
+        @kill = Kill.new(@killer.name, @victim.name) 
+        @kill.save
         @victim.dead = true
         respond_with @victim do |format| 
           format.json {render :json => { :success => true } }
