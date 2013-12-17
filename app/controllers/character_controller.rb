@@ -66,7 +66,7 @@ class CharactersController < ApplicationController
 
   private 
     def move_params
-      params.require(:character).permit(:lat, :long)
+      params.require(:character).permit(:latitude, :longitude)
     end
 
 
