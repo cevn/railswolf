@@ -17,9 +17,14 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'leaflet-rails' 
 gem 'simple_form', '~> 3.0.0.rc'
-gem 'whenever'
 gem 'faker' 
 
+
+## gcm push notifications for android
+gem 'rapns'
+
+## For heroku scheduler
+gem 'whenever'
 
 group :doc do
   gem 'sdoc', require: false
