@@ -10,7 +10,11 @@ class CharactersController < ApplicationController
 
     if @game and @game.night
       if @killer.werewolf 
-        @kill = Kill.new(@killer.name, @victim.name) 
+        @kill = Kill.new
+        @kill.latitude = @victim.latitude
+        @kill.longitude = @victim.longitude
+        @kill.killer = @killer.name
+        @kill.victim = @victim.name
         @kill.save
         @victim.dead = true
         respond_with @victim do |format| 
