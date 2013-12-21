@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
         format.json {render :json => { :success => true, 
                                        :remember_token => user.remember_token, 
                                        :id => user.id, 
+                                       :registration_id => user.registration_id, 
                                        :werewolf => user.character.werewolf }}
         format.html {redirect_to user}
       end

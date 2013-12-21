@@ -18,6 +18,30 @@ class UsersController < ApplicationController
     respond_with @users
   end
 
+  def reg_id 
+    @user = User.find(params[:id]) 
+    if @user.update_attributes(regid_params) 
+      respond_with(@user) do |format|
+        format.json { render :json => { :success => true, 
+                                        :registration_id => @user.registration_id } }
+        format.html {
+            flash[:success] = "Registration id updated" 
+            redirect_to @user
+        }
+      end
+    end
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(user_params)
+      flash[:success] = "Profile updated"
+      redirect_to @user
+    else
+      render 'edit'
+    end
+  end
+
   def create
     @user = User.new(user_params)
     
@@ -35,6 +59,7 @@ class UsersController < ApplicationController
         format.json {render :json => { :success => true,
                                        :remember_token => @user.remember_token,
                                        :id => @user.id,
+                                       :registration_id => @user.registration_id, 
                                        :werewolf => @user.character.werewolf }}
         format.html {
           flash[:success] = "Welcome to railswolf!"
@@ -71,7 +96,12 @@ class UsersController < ApplicationController
   private
     def user_params
       params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
+                                   :password_confirmation,
+                                   :registration_id)
+    end
+
+    def regid_params
+      params.require(:user).permit(:registration_id)
     end
 
     def signed_in_user
