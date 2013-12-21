@@ -19,7 +19,7 @@ class UsersController < ApplicationController
   end
 
   def reg_id 
-    @user = User.find(params[:id]) 
+    @user = User.find(params[:user_id]) 
     if @user.update_attributes(regid_params) 
       respond_with(@user) do |format|
         format.json { render :json => { :success => true, 
