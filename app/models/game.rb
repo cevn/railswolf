@@ -68,6 +68,7 @@ class Game < ActiveRecord::Base
           char.score += 100 
           char.save 
         end
+        @game.night = false
       end
 
     puts "Saving game..." 
