@@ -17,6 +17,14 @@ class CharactersController < ApplicationController
         @kill.victim = @victim.name
         @kill.save
         @victim.dead = true
+
+        @n = Rapns::Gcm::Notification.new 
+        @n.data = {:message => "You were killed!" }
+        @n.app = Rapns::Gcm::App.find_by_name("droidwolf")
+        @n.registration_ids = User.find(:victimid).registration_id
+        @n.save!
+        Rapns.push
+
         respond_with @victim do |format| 
           format.json {render :json => { :success => true } }
         end
