@@ -45,11 +45,6 @@ class GamesController < ApplicationController
     game.active = false
   end
 
-  def destroy 
-    @game = Game.find(1) 
-    game.active = false
-  end 
-
   def index
     @kills = Kill.paginate(page: params[:page])
     respond_with @kills

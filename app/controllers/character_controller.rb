@@ -16,7 +16,12 @@ class CharactersController < ApplicationController
         @kill.killer = @killer.name
         @kill.victim = @victim.name
         @kill.save
+
+        ## Give killer points for successfully killing somebody. 
+        @killer.score += 500
+        @killer.save
         @victim.dead = true
+        @victim.save
 
         @n = Rapns::Gcm::Notification.new 
         @n.data = {:message => "You were killed!" }
@@ -52,10 +57,11 @@ class CharactersController < ApplicationController
         @voted.votes += 1
         @voted.save
         @char.voted = true 
+        @char.score += 200
         @char.save
         respond_with(@voted) do |format| 
           format.json {render :json => { :success => true } } 
-      end
+        end
       else 
         respond_with(@voted) do |format| 
           format.json {render :json => { :success => :false, :error => "You can only vote once per day." } }
@@ -68,6 +74,8 @@ class CharactersController < ApplicationController
     @char = Character.find(params[:id]) 
 
     if @char.update_attributes(move_params)
+      @char.score += 10
+      @char.save
       respond_with(@char) do |format| 
         format.json {render :json => { :success => true }} 
       end
