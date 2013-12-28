@@ -13,7 +13,9 @@ class SessionsController < ApplicationController
                                        :remember_token => user.remember_token, 
                                        :id => user.id, 
                                        :registration_id => user.registration_id, 
-                                       :werewolf => user.character.werewolf }}
+                                       :werewolf => user.character.werewolf,
+                                       :cur_score => user.character.cur_score, 
+                                       :max_score => user.character.max_score }}
         format.html {redirect_to user}
       end
 
