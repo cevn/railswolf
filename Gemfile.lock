@@ -85,7 +85,7 @@ GEM
       activesupport (= 4.0.0)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
-    rake (10.1.0)
+    rake (10.1.1)
     rapns (3.4.1)
       multi_json (~> 1.0)
       net-http-persistent
@@ -144,6 +144,7 @@ DEPENDENCIES
   pg
   rails (= 4.0.0)
   rails_12factor
+  rake (= 10.1.1)
   rapns
   sass-rails (~> 4.0.0)
   sdoc

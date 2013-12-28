@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131216202217) do
+ActiveRecord::Schema.define(version: 20131221223913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20131216202217) do
     t.integer  "votes",      default: 0
     t.string   "name"
     t.boolean  "voted",      default: false
+    t.integer  "score",      default: 0
+    t.integer  "max_score",  default: 0
   end
 
   create_table "games", force: true do |t|
@@ -48,6 +50,55 @@ ActiveRecord::Schema.define(version: 20131216202217) do
     t.float    "longitude"
   end
 
+  create_table "rapns_apps", force: true do |t|
+    t.string   "name",                    null: false
+    t.string   "environment"
+    t.text     "certificate"
+    t.string   "password"
+    t.integer  "connections", default: 1, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "type",                    null: false
+    t.string   "auth_key"
+  end
+
+  create_table "rapns_feedback", force: true do |t|
+    t.string   "device_token", limit: 64, null: false
+    t.datetime "failed_at",               null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "app"
+  end
+
+  add_index "rapns_feedback", ["device_token"], name: "index_rapns_feedback_on_device_token", using: :btree
+
+  create_table "rapns_notifications", force: true do |t|
+    t.integer  "badge"
+    t.string   "device_token",      limit: 64
+    t.string   "sound",                        default: "default"
+    t.string   "alert"
+    t.text     "data"
+    t.integer  "expiry",                       default: 86400
+    t.boolean  "delivered",                    default: false,     null: false
+    t.datetime "delivered_at"
+    t.boolean  "failed",                       default: false,     null: false
+    t.datetime "failed_at"
+    t.integer  "error_code"
+    t.text     "error_description"
+    t.datetime "deliver_after"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "alert_is_json",                default: false
+    t.string   "type",                                             null: false
+    t.string   "collapse_key"
+    t.boolean  "delay_while_idle",             default: false,     null: false
+    t.text     "registration_ids"
+    t.integer  "app_id",                                           null: false
+    t.integer  "retries",                      default: 0
+  end
+
+  add_index "rapns_notifications", ["app_id", "delivered", "failed", "deliver_after"], name: "index_rapns_notifications_multi", using: :btree
+
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
@@ -56,6 +107,7 @@ ActiveRecord::Schema.define(version: 20131216202217) do
     t.boolean  "admin",           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "registration_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
