@@ -10,8 +10,11 @@ SdharRailswolf::Application.routes.draw do
         get  'show_alive' 
       end
     end
-
     post 'reg_id' 
+  end
+
+  resource :event do
+    get 'index' 
   end
 
   resources :sessions, only: [:new, :create, :destroy] 

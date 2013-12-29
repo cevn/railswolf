@@ -10,11 +10,12 @@ class CharactersController < ApplicationController
 
     if game and game.night and game.active
       if @killer.werewolf 
-        @kill = Kill.new
+        @kill = Event.new
         @kill.latitude = @victim.latitude
         @kill.longitude = @victim.longitude
         @kill.killer = @killer.name
         @kill.victim = @victim.name
+        @kill.type = "kill" 
         @kill.save
 
         ## Give killer points for successfully killing somebody. 

@@ -2,31 +2,36 @@ class GamesController < ApplicationController
   before_action :admin_user,     only: [:create, :destroy] 
 
   def new 
-    @game = Game.find_by_id(1)
+    game = Game.find_by_id(1)
 
-    if !@game 
-      @game = Game.new
-      @game.active = true 
-      @game.night = true 
-      @game.num_alive = Character.where(:dead => false).all.count
+    if !game 
+      Event.delete_all
+      event = Event.new 
+      event.type = "start" 
+      event.save 
 
-      @characters = Character.all 
-      @characters = @characters.shuffle!
+      game = Game.new
+      game.active = true 
+      game.night = true 
+      game.num_alive = Character.where(:dead => false).all.count
 
-      @numWerewolves = @characters.count/4
+      characters = Character.all 
+      characters = characters.shuffle!
 
-      @game.num_were = @numWerewolves
-      @game.num_town = @game.num_alive - @game.num_were
+      numWerewolves = characters.count/4
 
-      (0..@numWerewolves).each do |i|
-        @character = @characters[i]
-        @character.werewolf = true
+      game.num_were = numWerewolves
+      game.num_town = game.num_alive - game.num_were
+
+      (0..numWerewolves).each do |i|
+        character = characters[i]
+        character.werewolf = true
       end
 
 
-      if @game.save
-        puts "Game created with id = " + @game.id.to_s
-        flash[:success] = "Game created with id = " + @game.id.to_s
+      if game.save
+        puts "Game created with id = " + game.id.to_s
+        flash[:success] = "Game created with id = " + game.id.to_s
         render 'manage' 
       else 
         puts "Error creating game!" 
@@ -41,7 +46,7 @@ class GamesController < ApplicationController
 
 
   def finish
-    @game = Game.find(1) 
+    game = Game.find(1) 
     game.active = false
   end
 
