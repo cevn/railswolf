@@ -63,7 +63,7 @@ class CharactersController < ApplicationController
         format.json {render :json => { :success => :false, :error => "You can only vote during the day!" } }
       end
     else 
-      if !@char.voted
+      if !char.voted
         voted.votes += 1
         voted.save
         char.voted = true 
