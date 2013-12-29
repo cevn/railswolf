@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
 
   def index 
-    events = Event.load
+    events = Event.all
     respond_with(events)
   end
 end
