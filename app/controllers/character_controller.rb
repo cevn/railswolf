@@ -4,11 +4,11 @@ class CharactersController < ApplicationController
   
 
   def kill 
-    @game = Game.find_by_id(1)
+    game = Game.find_by_id(1)
     @killer = Character.find(params[:id]) 
     @victim = Character.find(params[:victimid]) 
 
-    if @game and @game.night
+    if game and game.night and game.active
       if @killer.werewolf 
         @kill = Kill.new
         @kill.latitude = @victim.latitude
@@ -58,7 +58,7 @@ class CharactersController < ApplicationController
     char = Character.find(params[:user_id]) 
 
 
-    if game and game.night
+    if game and game.night and game.active
       respond_with(voted) do |format| 
         format.json {render :json => { :success => :false, :error => "You can only vote during the day!" } }
       end
