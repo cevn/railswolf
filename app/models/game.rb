@@ -32,6 +32,7 @@ class Game < ActiveRecord::Base
         event.killerid = 0 
         event.latitude = charToKill.latitude 
         event.longitude= charToKill.longitude
+        event.event_type = "execute" 
         event.save 
 
         charToKill.dead = true

@@ -15,7 +15,7 @@ class CharactersController < ApplicationController
         @kill.longitude = @victim.longitude
         @kill.killer = @killer.name
         @kill.victim = @victim.name
-        @kill.type = "kill" 
+        @kill.event_type = "kill" 
         @kill.save
 
         ## Give killer points for successfully killing somebody. 

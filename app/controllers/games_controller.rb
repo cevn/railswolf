@@ -7,7 +7,7 @@ class GamesController < ApplicationController
     if !game 
       Event.delete_all
       event = Event.new 
-      event.type = "start" 
+      event.event_type = "start" 
       event.save 
 
       game = Game.new
