@@ -16,7 +16,7 @@ SdharRailswolf::Application.routes.draw do
   resources :events, only: [:index]
 
   resources :sessions, only: [:new, :create, :destroy] 
-  resource :game
+  resource :game, only: [:new, :reset]
 
   match '/signup',      to: 'users#new',            via: 'get'
   match '/signin',      to: 'sessions#new',         via: 'get'

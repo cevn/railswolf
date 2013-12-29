@@ -40,6 +40,11 @@ class GamesController < ApplicationController
     end
   end
 
+  def reset
+    Game.delete_all
+    new 
+  end
+
   def show
     render 'manage' 
   end 
