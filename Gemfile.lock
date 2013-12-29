@@ -144,7 +144,6 @@ DEPENDENCIES
   pg
   rails (= 4.0.0)
   rails_12factor
-  rake (= 10.1.1)
   rapns
   sass-rails (~> 4.0.0)
   sdoc
