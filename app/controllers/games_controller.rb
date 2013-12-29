@@ -9,6 +9,18 @@ class GamesController < ApplicationController
       event = Event.new 
       event.event_type = "start" 
       event.save 
+      
+      characters = Character.all
+
+      characters.each do |char| 
+        if char.max_score < char.score 
+          char.max_score = char.score
+        end
+
+        char.score = 0
+        char.dead = false
+        char.save
+      end
 
       game = Game.new
       game.active = true 
