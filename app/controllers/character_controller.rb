@@ -59,40 +59,37 @@ class CharactersController < ApplicationController
     char = Character.find(params[:user_id]) 
 
 
-    if game and game.night and game.active
+    if game and !game.night and game.active and !char.voted
+      voted.votes += 1
+      voted.save
+      char.voted = true 
+      char.score += 200
+      char.save
       respond_with(voted) do |format| 
-        format.json {render :json => { :success => :false, :error => "You can only vote during the day!" } }
+        format.json {render :json => { :success => true } } 
       end
     else 
-      if !char.voted
-        voted.votes += 1
-        voted.save
-        char.voted = true 
-        char.score += 200
-        char.save
-        respond_with(voted) do |format| 
-          format.json {render :json => { :success => true } } 
-        end
-      else 
-        respond_with(voted) do |format| 
-          format.json {render :json => { :success => :false, :error => "You can only vote once per day." } }
-        end
+      respond_with(voted) do |format| 
+        format.json {render :json => { :success => :false, :error => "You can only vote during the day!" } }
       end
     end
   end
 
   def move
     char = Character.find(params[:id]) 
+    game = Game.find_by_id(1) 
 
-    if char.update_attributes(move_params)
-      char.score += 10
-      char.save
-      respond_with(char) do |format| 
-        format.json {render :json => { :success => true }} 
-      end
-    else 
-      respond_with(char) do |format| 
-        format.json {render :json => { :success => false }}
+    if game and game.active 
+      if char.update_attributes(move_params)
+        char.score += 10
+        char.save
+        respond_with(char) do |format| 
+          format.json {render :json => { :success => true }} 
+        end
+      else 
+        respond_with(char) do |format| 
+          format.json {render :json => { :success => false }}
+        end
       end
     end
   end
