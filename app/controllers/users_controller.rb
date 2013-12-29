@@ -5,17 +5,17 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    respond_with @user
+    respond_with(@user)
   end
 
   def new
     @user = User.new
-    respond_with @user
+    respond_with(@user)
   end
 
   def index
     @users = User.paginate(page: params[:page])
-    respond_with @users
+    respond_with(@users)
   end
 
   def reg_id 
