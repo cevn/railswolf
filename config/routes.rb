@@ -13,9 +13,7 @@ SdharRailswolf::Application.routes.draw do
     post 'reg_id' 
   end
 
-  resource :event do
-    get 'index' 
-  end
+  resources :events, only: [:index]
 
   resources :sessions, only: [:new, :create, :destroy] 
   resource :game
