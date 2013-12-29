@@ -15,7 +15,8 @@ class SessionsController < ApplicationController
                                        :registration_id => user.registration_id, 
                                        :werewolf => user.character.werewolf,
                                        :cur_score => user.character.score, 
-                                       :max_score => user.character.max_score }}
+                                       :max_score => user.character.max_score, 
+                                       :dead => user.character.dead }}
         format.html {redirect_to user}
       end
 
