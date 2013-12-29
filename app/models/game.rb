@@ -28,7 +28,7 @@ class Game < ActiveRecord::Base
 
         ## Add event to record 
         event = Event.new 
-        event.victimid = charToKill.id
+        event.victim = charToKill.user.name
         event.killerid = 0 
         event.latitude = charToKill.latitude 
         event.longitude= charToKill.longitude
