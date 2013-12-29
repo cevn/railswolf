@@ -86,10 +86,10 @@ class CharactersController < ApplicationController
         respond_with(char) do |format| 
           format.json {render :json => { :success => true }} 
         end
-      else 
-        respond_with(char) do |format| 
-          format.json {render :json => { :success => false }}
-        end
+      end
+    else 
+      respond_with(char) do |format| 
+        format.json {render :json => { :success => false }}
       end
     end
   end
