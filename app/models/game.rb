@@ -38,13 +38,14 @@ class Game < ActiveRecord::Base
         charToKill.dead = true
         charToKill.save
 
-        n = Rapns::Gcm::Notification.new 
-        n.app = Rapns::Gcm::App.find_by_name("droidwolf") 
-        n.data = {:message => "You have been executed by popular vote! Better luck next time."} 
-        n.registration_ids = charToKill.user.registration_id
-        n.save! 
-
-        Rapns.push
+        if !charToKill.user.registration_id.nil? and !charToKill.user.registration_id.empty?
+          n = Rapns::Gcm::Notification.new 
+          n.app = Rapns::Gcm::App.find_by_name("droidwolf") 
+          n.data = {:message => "You have been executed by popular vote! Better luck next time."} 
+          n.registration_ids = charToKill.user.registration_id
+          n.save! 
+          Rapns.push
+        end
 
         ## Reset all votes and assign points
         ## Reload characters because one died 
