@@ -38,7 +38,7 @@ class Game < ActiveRecord::Base
         charToKill.dead = true
         charToKill.save
 
-        if !charToKill.user.registration_id.nil? and !charToKill.user.registration_id.empty?
+        if !charToKill.user.registration_id.blank?
           n = Rapns::Gcm::Notification.new 
           n.app = Rapns::Gcm::App.find_by_name("droidwolf") 
           n.data = {:message => "You have been executed by popular vote! Better luck next time."} 
