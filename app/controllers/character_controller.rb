@@ -5,30 +5,36 @@ class CharactersController < ApplicationController
 
   def kill 
     game = Game.find_by_id(1)
-    @killer = Character.find(params[:id]) 
-    @victim = Character.find(params[:victimid]) 
+    killer = Character.find(params[:id]) 
+    victim = Character.find(params[:victimid]) 
 
     if game and game.active
-      if @killer.werewolf 
-        @kill = Event.new
-        @kill.latitude = @victim.latitude
-        @kill.longitude = @victim.longitude
-        @kill.killer = @killer.name
-        @kill.victim = @victim.name
-        @kill.event_type = "kill" 
-        @kill.save
+      if killer.werewolf 
+        kill = Event.new
+        kill.latitude = victim.latitude
+        kill.longitude = victim.longitude
+        kill.killer = killer.name
+        kill.victim = victim.name
+        kill.event_type = "kill" 
+        kill.save
 
         ## Give killer points for successfully killing somebody. 
-        @killer.score += 500
-        @killer.save
-        @victim.dead = true
-        @victim.save
+        killer.score += 500
+        killer.save
+        victim.dead = true
 
-        @n = Rapns::Gcm::Notification.new 
-        @n.data = {:message => "You were killed!" }
-        @n.app = Rapns::Gcm::App.find_by_name("droidwolf")
-        @n.registration_ids = User.find(params[:victimid]).registration_id
-        @n.save!
+        if victim.score > victim.max_score
+          victim.max_score = victim.score
+          victim.save 
+        end 
+
+        victim.save
+
+        n = Rapns::Gcm::Notification.new 
+        n.data = {:message => "You were killed!" }
+        n.app = Rapns::Gcm::App.find_by_name("droidwolf")
+        n.registration_ids = victim.user.registration_id
+        n.save!
         Rapns.push
 
         respond_to do |format| 
