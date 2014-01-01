@@ -27,7 +27,7 @@ class CharactersController < ApplicationController
         @n = Rapns::Gcm::Notification.new 
         @n.data = {:message => "You were killed!" }
         @n.app = Rapns::Gcm::App.find_by_name("droidwolf")
-        @n.registration_ids = User.find(:victimid).registration_id
+        @n.registration_ids = User.find(params[:victimid]).registration_id
         @n.save!
         Rapns.push
 
