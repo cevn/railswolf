@@ -32,7 +32,7 @@ class CharactersController < ApplicationController
         Rapns.push
 
         respond_with(@victim) do |format| 
-          format.json {render :json => { :success => true } }
+          format.json { render json: { :success => true } }
         end
       end
     end
