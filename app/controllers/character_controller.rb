@@ -8,7 +8,7 @@ class CharactersController < ApplicationController
     @killer = Character.find(params[:id]) 
     @victim = Character.find(params[:victimid]) 
 
-    if game and game.night and game.active
+    if game and game.active
       if @killer.werewolf 
         @kill = Event.new
         @kill.latitude = @victim.latitude
