@@ -31,10 +31,18 @@ class CharactersController < ApplicationController
         @n.save!
         Rapns.push
 
-        respond_with(@victim) do |format| 
+        respond_to do |format| 
           format.json { render json: { :success => true } }
         end
+      else 
+        respond_to do |format| 
+          format.json { render json: { success: false } } 
+        end
       end
+    else
+      respond_to do |format| 
+        format.json { render json: {success: false }} 
+      end 
     end
   end 
 
